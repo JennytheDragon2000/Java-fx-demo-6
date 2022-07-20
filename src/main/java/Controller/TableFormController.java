@@ -79,29 +79,38 @@ public class TableFormController {
 
                 //itr + tab
 
-                for (customerTM olcustomer :
-                        olCustomers) {
-                    System.out.println(olcustomer);
-                    if (olcustomer.getId().equals(txtID.getText())) {
-                        new Alert(Alert.AlertType.ERROR, "Duplicate Customer IDs are not Allowed").showAndWait();
-                        txtID.requestFocus();
-                        return;
+                if (btnSaveCustomer.getText().equalsIgnoreCase("Save Customer")) {
+                    for (customerTM olcustomer :
+                            olCustomers) {
+                        System.out.println(olcustomer);
+                        if (olcustomer.getId().equals(txtID.getText())) {
+                            new Alert(Alert.AlertType.ERROR, "Duplicate Customer IDs are not Allowed").showAndWait();
+                            txtID.requestFocus();
+                            return;
+                        }
                     }
-                }
 
-                String id = txtID.getText();
-                String name = txtName.getText();
-                String address = txtAddress.getText();
+                    String id = txtID.getText();
+                    String name = txtName.getText();
+                    String address = txtAddress.getText();
 
 
 //                customerTM newCustomer = new customerTM(id, name, address);
-                olCustomers.add(new customerTM(id, name, address));
+                    olCustomers.add(new customerTM(id, name, address));
 
-                txtID.clear();
-                txtName.clear();
-                txtAddress.clear();
+                    txtID.clear();
+                    txtName.clear();
+                    txtAddress.clear();
 
-                txtID.requestFocus();
+                    txtID.requestFocus();
+                }
+                else{
+                    customerTM selectedItem = tblCustomers.getSelectionModel().getSelectedItem();
+                    selectedItem.setName(txtName.getText());
+                    selectedItem.setAddress(txtAddress.getText());
+                    tblCustomers.refresh();
+
+                }
             }
         });
 
